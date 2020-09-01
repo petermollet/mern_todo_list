@@ -1,30 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/Todo.css';
 import Task from './children/Task';
-import { idGenerator } from './../../shared/services/random-services';
+import Axios from 'axios';
 
 const TodoApp = () => {
 
-    const [items, setItems] = useState([ 
-        { text:"Item #1", done:false, key: new Date().getMilliseconds() + idGenerator() + '1' }, 
-        { text:"Item #2", done:false, key: new Date().getMilliseconds() + idGenerator() + '2' }, 
-        { text:"Item #3", done:false, key: new Date().getMilliseconds() + idGenerator() + '3' }, 
-        { text:"Item #4", done:false, key: new Date().getMilliseconds() + idGenerator() + '4' }, 
-        { text:"Item #5", done:false, key: new Date().getMilliseconds() + idGenerator() + '5' } 
-    ]);
+    const [ items, setItems ] = useState([]);
+    const [ loading, setLoading ] = useState(true);
 
-    const move = (key) => {
-        const filtered = [...items];
-        const index = filtered.findIndex(item => item.key === key);
-        filtered[index].done = !filtered[index].done;
-        setItems(filtered);
+    useEffect(() => {
+        loadTodos();
+    }, [])
+
+    const loadTodos = async () => {
+        const result =  await Axios.get('http://localhost:4000/todos/');
+        setItems(result.data);
+        setLoading(false);;
     }
 
-    const add = (item) => setItems([...items, item]);
+    const move = (id) => {
+        Axios.put(`http://localhost:4000/todos/${id}`)
+             .then(res => {
+                if(res.status === 200) {
+                    const filtered = [...items];
+                    const index = filtered.findIndex(item => item._id === id);
+                    filtered[index].isCompleted = !filtered[index].isCompleted;
+                    setItems(filtered);
+                }
+             })
+             .catch(err => console.log(err))
+    }
 
-    const remove = (key) => setItems(items.filter(item => item.key !== key));
+    const add = (item) => {
+        Axios.post('http://localhost:4000/todos/add', item)
+             .then(res => {
+                 if(res.status === 200) setItems([...items, res.data]);
+             })
+             .catch(err => console.log(err));
+    }
 
-    return (
+    const remove = (id) => {
+        Axios.delete(`http://localhost:4000/todos/${id}`)
+             .then(res => {
+                if(res.status === 200) setItems(items.filter(item => item._id !== id));
+             })
+             .catch(err => console.log(err))
+        
+    }
+
+    if(loading) return <div className="text-center"><h1>Loading...</h1></div>
+    else {
+        return (
         <div className="container">
             <div className="row">
                 <div className="col-md-6">
@@ -34,12 +60,12 @@ const TodoApp = () => {
                 </div>
                 <div className="col-md-6">
                     <div className="todolist">
-                        <Task move={ move } items={ items } remove={ remove } done />
+                        <Task move={ move } items={ items } remove={ remove } isCompleted />
                     </div>
                 </div>
             </div>
         </div>
-    );
+    );}
 };
 
 export default TodoApp;

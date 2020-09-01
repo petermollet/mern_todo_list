@@ -1,12 +1,10 @@
 import React from 'react';
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from "yup";
-import { idGenerator } from './../../../../shared/services/random-services';
 
 const AddTodo = ({ add }) => {
 
     const submit = (values, { resetForm }) => {
-        values.key = new Date().getMilliseconds() + idGenerator() + values.text[values.text.length -1];
         add(values);
         resetForm();
     }
@@ -16,7 +14,7 @@ const AddTodo = ({ add }) => {
     return (
         <Formik
             onSubmit={ submit }
-            initialValues={ { text:"", done:false, key: null } }
+            initialValues={ { text:"", isCompleted:false, id: null } }
             validationSchema={ validationSchema }
         >
             {({ values, handleSubmit }) => (

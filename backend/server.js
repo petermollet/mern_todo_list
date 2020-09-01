@@ -48,7 +48,7 @@ router.route("/").get((_,res) => {
 router.route("/add").post((req, res) => {
   const todo = new Todo(req.body);
   todo.save()
-      .then(() => res.status(200).send({ message: `${todo.text} is successfully added` }) )
+      .then((response) =>  res.status(200).send(response))
       .catch((err) => res.status(400).send({ error: `error adding document ${err}` }) );
 });
 
