@@ -15,7 +15,7 @@ const TodoApp = () => {
     const loadTodos = async () => {
         const result =  await Axios.get('http://localhost:4000/todos/');
         setItems(result.data);
-        setLoading(false);;
+        setLoading(false);
     }
 
     const move = (id) => {
