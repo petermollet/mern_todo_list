@@ -21,3 +21,10 @@ The Back end run on port 4000, while Front end run on port 3000.
 
 
 Note that the Back end need to be connected to an existing Database (either running locally or remotely).
+
+
+
+What you need to run the project :
+
+* Back/Front : **node** and **npm** on your computer
+* Back: **nodemon** (to rerun automatically the back after each modification on a file)
