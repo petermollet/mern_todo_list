@@ -1,1 +1,1 @@
-set BROWSER=none&&npm start
+npm start
