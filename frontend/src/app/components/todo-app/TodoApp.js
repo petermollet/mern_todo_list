@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/Todo.css';
 import Task from './children/Task';
 import Axios from 'axios';
 
@@ -54,12 +53,12 @@ const TodoApp = () => {
         <div className="container">
             <div className="row">
                 <div className="col-md-6">
-                    <div className="todolist">
+                    <div className="">
                         <Task move={ move } items={ items } add={ add } remove={ remove }/>
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <div className="todolist">
+                    <div className="">
                         <Task move={ move } items={ items } remove={ remove } isCompleted />
                     </div>
                 </div>

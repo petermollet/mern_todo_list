@@ -5,7 +5,7 @@ import NavBar from './components/header/NavBar';
 const App = () => {
     return (
         <>
-            <NavBar />
+            <NavBar/>
             <TodoApp />
         </>
         

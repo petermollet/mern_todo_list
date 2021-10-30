@@ -18,9 +18,9 @@ const AddTodo = ({ add }) => {
             validationSchema={ validationSchema }
         >
             {({ values, handleSubmit }) => (
-                <form onSubmit={handleSubmit}>
-                    <Field className="form-control" name='text' value={values.text} placeholder='add todo' />
-                    <ErrorMessage component='small' name="text" className="text-danger ml-2" />
+                <form onSubmit={handleSubmit} className="position-relative pb-2">
+                    <Field className="form-control" name='text' value={values.text} placeholder='add...' />
+                    <ErrorMessage component='small' name="text" className="text-danger ml-2 position-absolute" />
                 </form>
             )}
         </Formik>

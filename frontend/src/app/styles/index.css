@@ -14,13 +14,15 @@ code {
     monospace;
 }
 
-
-/* UTILS */
-
-.no-padding {
-  padding-left: 0;
+.task:hover{
+  background-color: #EEEEEE;
 }
 
-.paddingZero {
-  padding: 0;
+.cursor-pointer{
+  cursor: pointer;
+}
+
+#done-task{
+  text-decoration: line-through;
+  color: #8b8b8b;
 }
